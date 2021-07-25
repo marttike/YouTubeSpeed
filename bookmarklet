@@ -1,0 +1,60 @@
+javascript: (
+/* YouTube speed bookmarklet */
+function () {
+  
+  YTSpeedSlider = 
+  function () {
+    if (document.getElementById("speedboxbg"))
+    {
+      /* Toggle the slider. Hide if already shown. */
+      document.getElementById("speedboxbg").remove();
+    }
+    else
+    {	
+      /* Build a slider */
+      var speedboxbg = document.createElement("div");
+      speedboxbg.id = "speedboxbg";
+
+      var speedslider = document.createElement("input");
+      speedboxbg.style.cssText =
+        "position:fixed; z-index:100000; left:10%; top:0; width:310px; height:50px; background-color:rgba(0,0,0,0.6); border-radius:0px 0px 15px 15px; ";
+      speedslider.type = "range";
+      speedslider.id = "speedslider";
+      speedslider.min = 0;
+      speedslider.max = 4;
+      speedslider.step = 0.05;
+      speedslider.value = document.getElementsByTagName("video")[0].playbackRate;
+      speedslider.style.cssText =
+        "position:relative; width: 70%; top:50%; left:40%; margin-right:-50%; transform:translate(-50%, -50%); font-size:2em;";
+
+      var number = document.createElement("span");
+      number.innerHTML =
+        document.getElementsByTagName("video")[0].playbackRate + "x";
+      number.style.cssText =
+        "float:right; color:white;  padding:15px 10px; font-size:20px;";
+
+      document.getElementsByTagName("body")[0].appendChild(speedboxbg);
+      speedboxbg.appendChild(speedslider);
+      speedboxbg.appendChild(number);
+
+      speedslider.addEventListener("change", function (event) {
+        number.innerHTML = event.target.value + "x";
+        document.getElementsByTagName("video")[0].playbackRate =
+          event.target.value;
+        console.log("Youtube speed " + event.target.value);
+      });
+    };
+  };
+
+  YTSpeedUpdate = 
+  function() {
+ 	  var speedslider = document.getElementById("speedslider");
+ 	  if(speedslider)
+ 	  {
+ 		  document.getElementsByTagName("video")[0].playbackRate = speedslider.value;
+ 	  }
+  };
+  
+  YTSpeedSlider();
+  setInterval(YTSpeedUpdate,2000);
+})();
