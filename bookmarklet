@@ -28,7 +28,7 @@ function () {
         "position:relative; width: 70%; top:50%; left:40%; margin-right:-50%; transform:translate(-50%, -50%); font-size:2em;";
 
       var number = document.createElement("span");
-      number.innerHTML =
+      number.textContent =
         document.getElementsByTagName("video")[0].playbackRate + "x";
       number.style.cssText =
         "float:right; color:white;  padding:15px 10px; font-size:20px;";
@@ -38,7 +38,7 @@ function () {
       speedboxbg.appendChild(number);
 
       speedslider.addEventListener("change", function (event) {
-        number.innerHTML = event.target.value + "x";
+        number.textContent = event.target.value + "x";
         document.getElementsByTagName("video")[0].playbackRate =
           event.target.value;
         console.log("Youtube speed " + event.target.value);
